@@ -5,9 +5,13 @@ from django.http import HttpResponse
 # Create your views here.
 
 def getVisualArt(request, artID):
+    print(request.path)
     try:
         artObj = VisualArt.objects.get(id=artID)
-        show = artObj.show
+        if request.user.is_superuser:
+            show = True
+        else:
+            show = artObj.show
     except:
         show = False
     if not show:

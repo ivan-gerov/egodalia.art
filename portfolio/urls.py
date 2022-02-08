@@ -19,5 +19,5 @@ from posts.views import getVisualArt
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('art/<int:artID>', getVisualArt),
+    path('art/<str:artID>', getVisualArt),
 ]
