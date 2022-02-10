@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Category, VisualArt
 from django.http import HttpResponse
+from ratelimit.decorators import ratelimit
 
 # Create your views here.
 
@@ -41,7 +42,13 @@ def art(request, artID):
         show = False
     if not show:
         return HttpResponse("Art not found", status=404)
-    return HttpResponse(artID)
+    categories = Category.objects.filter(show=True)
+    content = {
+        'categories': categories,
+        'art': artObj,
+        'isIndex': True
+    }
+    return render(request, 'posts/art_page.html', content)
 
 def getArtsFromCategory(request, categoryID):
     categories = Category.objects.filter(show=True)
@@ -52,3 +59,16 @@ def getArtsFromCategory(request, categoryID):
         'categoryID': int(categoryID)
     }
     return render(request, 'posts/index.html', content)
+
+
+def getBlogHome(request):
+    content = {
+        'isBlog': True
+    }
+    return render(request, 'posts/blog_home.html', content)
+
+def getBlogPost(request):
+    content = {
+        'isBlog': True
+    }
+    return render(request, 'posts/blog_post.html', content)

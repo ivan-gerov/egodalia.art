@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from posts.views import getVisualArt, index, art, getArtsFromCategory
+from posts.views import getVisualArt, index, art, getArtsFromCategory, getBlogHome, getBlogPost
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('visualart/<str:artID>/', getVisualArt),
     path('', index),
     path('art/<str:artID>/', art),
-    path('category/<str:categoryID>/', getArtsFromCategory)
+    path('category/<str:categoryID>/', getArtsFromCategory),
+    path('blog/', getBlogHome),
+    path('post/', getBlogPost)
 ]

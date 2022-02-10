@@ -33,6 +33,7 @@ class VisualArt(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     show = models.BooleanField(default = True)
     categories = models.ManyToManyField(Category)
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -47,3 +48,9 @@ class VisualArt(models.Model):
         verbose_name_plural = "arts"
         verbose_name = "art"
 
+class Comment(models.Model):
+    posted_by = models.CharField(max_length=32)
+    comment = models.TextField()
+    posted_on = models.DateTimeField(auto_now_add = True)
+    visualart = models.ForeignKey(VisualArt, on_delete=models.CASCADE)
+    
