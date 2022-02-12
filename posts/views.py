@@ -1,7 +1,12 @@
 from django.shortcuts import render
-from .models import Category, VisualArt
+from .models import Category, VisualArt, Post, BlogCategory
 from django.http import HttpResponse
 from ratelimit.decorators import ratelimit
+from markdown import Markdown
+
+
+markdowner = Markdown()
+
 
 # Create your views here.
 
@@ -43,6 +48,10 @@ def art(request, artID):
     if not show:
         return HttpResponse("Art not found", status=404)
     categories = Category.objects.filter(show=True)
+    if artObj.description is not None:
+        artObj.description = markdowner.convert(artObj.description)
+    else:
+        artObj.description = ""
     content = {
         'categories': categories,
         'art': artObj,
@@ -62,13 +71,32 @@ def getArtsFromCategory(request, categoryID):
 
 
 def getBlogHome(request):
+    blogPosts = Post.objects.all()
+    for post in blogPosts:
+        post.body = markdowner.convert(post.body)
+
+    categories = BlogCategory.objects.all()
+    headPost = blogPosts[0]
+    blogPosts = blogPosts[1:]
     content = {
+        'posts': blogPosts,
+        'headPost': headPost,
+        'blog_categories': categories,
         'isBlog': True
     }
     return render(request, 'posts/blog_home.html', content)
 
-def getBlogPost(request):
+def getBlogPost(request, postID):
+    try:
+        post = Post.objects.get(id=postID)
+    except:
+        return HttpResponse("Post not found", status=404)
+    categories = BlogCategory.objects.all()
+
+    post.body = markdowner.convert(post.body)
     content = {
+        'blog_categories': categories,
+        'post': post,
         'isBlog': True
     }
     return render(request, 'posts/blog_post.html', content)

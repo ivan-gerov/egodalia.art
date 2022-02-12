@@ -24,5 +24,5 @@ urlpatterns = [
     path('art/<str:artID>/', art),
     path('category/<str:categoryID>/', getArtsFromCategory),
     path('blog/', getBlogHome),
-    path('post/', getBlogPost)
+    path('post/<str:postID>/', getBlogPost)
 ]
