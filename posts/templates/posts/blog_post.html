@@ -8,7 +8,7 @@
       <article class="blog-post">
         <h2 class="blog-post-title">{{post.title}}</h2>
         {% if category == None %}
-          <p class="blog-post-meta">{{post.created_at}} in category <a href="#">{{post.category.name}}</a></p>
+          <p class="blog-post-meta">{{post.created_at}} in category <a href="/blogcategory/{{post.category.id}}/">{{post.category.name}}</a></p>
         {% else %}
           <p class="blog-post-meta">{{post.created_at}}</p>
         {% endif %}

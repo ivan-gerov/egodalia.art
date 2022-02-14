@@ -74,7 +74,7 @@ class Post(models.Model):
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    category = models.ForeignKey(BlogCategory, verbose_name="Category", on_delete=models.PROTECT, null=True)
+    category = models.ForeignKey(BlogCategory, verbose_name="Category", on_delete=models.PROTECT, null=True, default=None)
     views = models.DecimalField(max_digits=10, decimal_places=0, default=0)
 
     def __str__(self):

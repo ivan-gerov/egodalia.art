@@ -100,3 +100,20 @@ def getBlogPost(request, postID):
         'isBlog': True
     }
     return render(request, 'posts/blog_post.html', content)
+
+
+def getPostsFromCategory(request, categoryID):
+    try:
+        category = BlogCategory.objects.get(id=categoryID)
+    except:
+        return HttpResponse("Post not found", status=404)
+    posts = Post.objects.filter(category=category)
+    for post in posts:
+        post.body = markdowner.convert(post.body)
+    categories = BlogCategory.objects.all()
+    content = {
+        'posts': posts,
+        'blog_categories': categories,
+        'isBlog': True
+    }    
+    return render(request, 'posts/blog_categorypage.html', content)

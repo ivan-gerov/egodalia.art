@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from posts.views import getVisualArt, index, art, getArtsFromCategory, getBlogHome, getBlogPost
-
+from posts.views import getPostsFromCategory
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('visualart/<str:artID>/', getVisualArt),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('art/<str:artID>/', art),
     path('category/<str:categoryID>/', getArtsFromCategory),
     path('blog/', getBlogHome),
-    path('post/<str:postID>/', getBlogPost)
+    path('post/<str:postID>/', getBlogPost),
+    path('blogcategory/<str:categoryID>/', getPostsFromCategory)
 ]
