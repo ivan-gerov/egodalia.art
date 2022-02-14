@@ -12,6 +12,11 @@
                 <div class="card-body">
                     <h3 class="text-muted" style="margin-top: 10px;">{{ art.name }}</h3>
                     <hr>
+                    <p>
+                    {% for category in art.categories.all %}
+                        <a href="/category/{{category.id}}/" class="link-secondary">{{category.name}}</a> 
+                    {% endfor %}
+                    </p>
                     <p>{{ art.description | safe | linebreaks}}</p>
                 </div>
             </div>
