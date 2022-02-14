@@ -76,68 +76,107 @@
     <symbol id="papers-white" viewBox="0 0 20 20">
       <path path="#ffffff" d="M17.391,2.406H7.266c-0.232,0-0.422,0.19-0.422,0.422v3.797H3.047c-0.232,0-0.422,0.19-0.422,0.422v10.125c0,0.232,0.19,0.422,0.422,0.422h10.125c0.231,0,0.422-0.189,0.422-0.422v-3.797h3.797c0.232,0,0.422-0.19,0.422-0.422V2.828C17.812,2.596,17.623,2.406,17.391,2.406 M12.749,16.75h-9.28V7.469h3.375v5.484c0,0.231,0.19,0.422,0.422,0.422h5.483V16.75zM16.969,12.531H7.688V3.25h9.281V12.531z"></path>
   </symbol>
+  <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="46" height="46" fill="black"/>
+    <path d="M15.232 8.008C18.384 8.008 20.728 8.728 22.264 10.168C23.8 11.592 24.568 13.64 24.568 16.312C24.568 18.056 24.192 19.584 23.44 20.896C22.688 22.192 21.592 23.2 20.152 23.92C18.728 24.64 17.016 25 15.016 25C14.76 25 14.424 24.992 14.008 24.976C13.592 24.96 13.16 24.952 12.712 24.952C12.264 24.936 11.864 24.928 11.512 24.928C10.808 24.928 10.112 24.936 9.424 24.952C8.752 24.952 8.216 24.968 7.816 25V24.52C8.328 24.488 8.712 24.424 8.968 24.328C9.224 24.232 9.392 24.04 9.472 23.752C9.568 23.464 9.616 23.032 9.616 22.456V10.552C9.616 9.96 9.568 9.528 9.472 9.256C9.392 8.968 9.216 8.776 8.944 8.68C8.688 8.568 8.312 8.504 7.816 8.488V8.008C8.216 8.024 8.752 8.048 9.424 8.08C10.112 8.096 10.792 8.096 11.464 8.08C12.04 8.064 12.688 8.048 13.408 8.032C14.144 8.016 14.752 8.008 15.232 8.008ZM15.208 8.44C14.472 8.44 13.992 8.576 13.768 8.848C13.544 9.12 13.432 9.672 13.432 10.504V22.504C13.432 23.336 13.544 23.888 13.768 24.16C14.008 24.432 14.496 24.568 15.232 24.568C16.576 24.568 17.632 24.256 18.4 23.632C19.184 22.992 19.744 22.064 20.08 20.848C20.416 19.632 20.584 18.152 20.584 16.408C20.584 14.616 20.4 13.136 20.032 11.968C19.68 10.784 19.112 9.904 18.328 9.328C17.544 8.736 16.504 8.44 15.208 8.44Z" fill="white"/>
+  </svg>
+    
   </svg>
   
-<div class="bg-light" style="width: 260px; position: absolute; height: 100%;">
-
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style=" width: 260px; display: inline-block; position:absolute;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-4">Portfolio</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-        {% if isIndex %}
-            <a href="/" class="nav-link active" style="color: linear-gradient(to bottom right, #0066cc 0%, #ff99cc 100%);" aria-current="page">
-            <svg class="bi me-2" width="20" height="20"><use xlink:href="#home-white"></use></svg>
-        {% else %}
-            <a href="/" class="nav-link link-dark">
-            <svg class="bi me-2" width="20" height="20"><use xlink:href="#home-black"></use></svg>
-
-        {% endif %}
-            Art
-        </a>
-        </li>
-        <li class="nav-item">
-            {% if isBlog %}
-                <a href="/blog" class="nav-link active" aria-current="page">
-                <svg class="bi me-2" width="20" height="20"><use xlink:href="#book-white"></use></svg>
-            {% else %}
-                <a href="/blog" class="nav-link link-dark">
-                <svg class="bi me-2" width="20" height="20"><use xlink:href="#book-black"></use></svg>
-    
-            {% endif %}
-                Blog
-            </a>
-        </li>
-        <li>
-        <a href="#" class="nav-link link-dark">
-            <svg class="bi me-2" width="20" height="20"><use xlink:href="#human-black"></use></svg>
-            About me
-        </a>
-        </li>
-    </ul>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        {% for category in categories %} 
-        <li>
-            {% if category.id == categoryID %}
-            
-                <a href="/category/{{category.id}}" class="nav-link active">
-            {% else %}
-                <a href="/category/{{category.id}}" class="nav-link link-dark">
-            {% endif %}
-            <svg class="bi me-2" width="20" height="20"><use xlink:href="#papers-black"></use></svg>
-            {{ category.name }}
-            </a>
-        </li>
-        {% endfor %}
-        
-        </ul>
-</div>
-</div>
-
 <style>
+  .portfoliotext {
+    /* Portfolio */
+
+
+
+    font-family: Playfair Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 48px;
+    /* identical to box height */
+
+    margin-left: 8px;
+
+    color: #000000;
+  }
+
+  .sidebarcontainer {
+    position: fixed;
+    margin-top: 28vh;
+    padding-left: 50px;
+  }
+
+  .Drectangle {
+    width:46px;
+    height: 46px;
+
+    background: #000000;
+  }
+
+  .Dletter {
+    font-family: Playfair Display;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+
+    padding-top: 2px;
+    padding-left: 6px;
+
+    color: #FFFFFF;
+  }
+
+  .navigationcontainer{
+    margin-top: 60px;
+  }
+
+  .arttext {
+    /* Art */
+
+
+    font-family: NATS;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    /* identical to box height */
+
+    margin-left: 6px;
+
+    color: #000000;
+  }
 
 </style>
+<div class="sidebarcontainer">
+  <div style="display: flex;">
+    <div class="Drectangle">
+      <p class="Dletter">D</p>
+    </div>
+    <h4 class="portfoliotext">Portfolio</h4>
+  </div>
+  <div class="navigationcontainer">
+    <a href="/" style="text-decoration: none; color: #000000;">
+        {% if isIndex %}
+          <p class="arttext"><i class="fa-solid fa-paintbrush fa-2xs" style="font-size: 16px; color: #5823C8;"></i>   Art</p>
+        {% else %} 
+          <p class="arttext"><i class="fa-solid fa-paintbrush fa-2xs" style="font-size: 16px;"></i>   Art</p>     
+        {% endif %}
+    </a>
+    <a href="/blog/" style="text-decoration: none; color: #000000;">
+        {% if isBlog %}
+          <p class="arttext" style="padding-top: 1px;"><i class="fa-solid fa-newspaper fa-2xs" style="font-size: 16px; color: #5823C8;"></i>   Blog</p>
+        {% else %} 
+          <p class="arttext" style="padding-top: 1px;"><i class="fa-solid fa-newspaper fa-2xs" style="font-size: 16px;"></i>   Blog</p>
+        {% endif %}
+    </a>
+    <a href="/" style="text-decoration: none; color: #000000;">
+      {% if isAboutMe %}
+        <p class="arttext" style="padding-top: 1px;">    <i class="fa-solid fa-address-card fa-2xs" style="font-size: 16px; color: #5823C8;"></i>   About me</p>
+      {% else %} 
+        <p class="arttext" style="padding-top: 1px;">    <i class="fa-solid fa-address-card fa-2xs" style="font-size: 16px;"></i>   About me</p>
+      {% endif %}
+  </a>
+  </div>
+</div>
+
+
