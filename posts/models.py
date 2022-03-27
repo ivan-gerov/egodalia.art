@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib import admin
 import os
+from ordered_model.models import OrderedModel
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here
 
 class Category(models.Model):
@@ -25,7 +29,7 @@ def content_file_name_art(instance, filename):
     filename = "{}.{}".format(instance.id, ext)
     return os.path.join('art', filename)
 
-class VisualArt(models.Model):
+class VisualArt(OrderedModel):
     name = models.CharField(max_length=100)
     art = models.ImageField(upload_to = 'art/')
     description = models.TextField(null=True, default=None)
@@ -42,11 +46,16 @@ class VisualArt(models.Model):
         return '<a href="/art/{}">art/{}</a>'.format(self.id) 
 
 
-
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["order"]
         verbose_name_plural = "arts"
         verbose_name = "art"
+
+@receiver(post_save, sender=VisualArt)
+def handleSavedArts(sender, instance, created, **kwargs): # we need this to move the new object always on top in ordering
+    if created: # we make sure its created and not updated
+        instance.top()
+
 
 class Comment(models.Model):
     posted_by = models.CharField(max_length=32)
