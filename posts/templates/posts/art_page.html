@@ -4,10 +4,12 @@
     <div class="row">
         <div class="col-md">
             <div class="row">
-                <img class="xcenter-fit" src='/visualart/{{art.id}}/'>
+                <div class="gallery">
+                    <img class="xcenter-fit" src='/visualart/{{art.id}}/'>
+                </div>
             </div>
         </div>
-        <div class="col-md" style="text-align: center;   "> 
+        <div class="col-md" style="text-align: center; "> 
             <div class="card">
                 <div class="card-body">
                     <h3 class="text-muted" style="margin-top: 10px;">{{ art.name }}</h3>
@@ -22,6 +24,17 @@
             </div>
         </div>
     </div>
+    <div id="fullpage" onclick="this.style.display='none';"></div>
+    <script>
+        const imgs = document.querySelectorAll('.gallery img');
+        const fullPage = document.querySelector('#fullpage');
+        imgs.forEach(img => {
+        img.addEventListener('click', function() {
+            fullPage.style.backgroundImage = 'url(' + img.src + ')';
+            fullPage.style.display = 'block';
+        });
+        });
+    </script>
 </div>
 
 
