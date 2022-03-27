@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Category, VisualArt, Post, BlogCategory
 from django.http import HttpResponse
 from ratelimit.decorators import ratelimit
@@ -23,7 +23,7 @@ def getVisualArt(request, artID):
     if not show:
         return HttpResponse("Art not found", status=404)
     image_data = open(artObj.art.path, 'rb').read()
-    return HttpResponse(image_data, content_type='image/png')
+    return redirect(artObj.art.url)
 
 
 def index(request):
