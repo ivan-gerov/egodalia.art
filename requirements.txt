@@ -9,3 +9,4 @@ markdown2==2.4.2
 Pillow==9.0.1
 sqlparse==0.4.2
 zipp==3.7.0
+django-limits==0.0.6

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from posts.views import getVisualArt, index, art, getArtsFromCategory, getBlogHome, getBlogPost
+from posts.views import getMe, getVisualArt, index, art, getArtsFromCategory, getBlogHome, getBlogPost
 from posts.views import getPostsFromCategory
 from django.conf.urls.static import static
 from django.conf import settings
@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('visualart/<str:artID>/', getVisualArt),
     path('', index),
+    path('about/', getMe),
     path('art/<str:artID>/', art),
     path('category/<str:categoryID>/', getArtsFromCategory),
     path('blog/', getBlogHome),

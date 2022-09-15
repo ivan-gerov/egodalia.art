@@ -5,6 +5,10 @@ from ordered_model.models import OrderedModel
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django_limits.limiter import Limiter
+from django.contrib.auth.models import User
+
+
 # Create your models here
 
 class Category(models.Model):
@@ -87,7 +91,30 @@ class Post(models.Model):
     views = models.DecimalField(max_digits=10, decimal_places=0, default=0)
 
     def __str__(self):
-        return self.title    
+        return self.title
 
     class Meta:
         ordering = ["-created_at"]
+
+
+class AboutMe(models.Model): # this is a de-facto model for simplicity - doesn't have to be a model, I was just lazy and this is the easiest way
+    title = models.CharField(max_length=80)
+    body = models.TextField()
+
+    def __str__(self):
+        return "About Me: %s" % self.title
+
+    class Meta:
+        verbose_name_plural = "About Me" # no plural
+        verbose_name = "About Me"
+
+
+class MyLimiter(Limiter):
+    rules = {
+        AboutMe: [
+            {
+                'limit': 1,
+                'message': "Only one About Me allowed!",
+            },
+        ]
+    }

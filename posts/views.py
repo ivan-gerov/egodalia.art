@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Category, VisualArt, Post, BlogCategory
+from .models import AboutMe, Category, VisualArt, Post, BlogCategory
 from django.http import HttpResponse
 from ratelimit.decorators import ratelimit
 from markdown import Markdown
@@ -23,6 +23,7 @@ def getVisualArt(request, artID):
     if not show:
         return HttpResponse("Art not found", status=404)
     image_data = open(artObj.art.path, 'rb').read()
+    print(artObj.art.url)
     return redirect(artObj.art.url)
 
 
@@ -115,5 +116,16 @@ def getPostsFromCategory(request, categoryID):
         'posts': posts,
         'blog_categories': categories,
         'isBlog': True
-    }    
+    }
     return render(request, 'posts/blog_categorypage.html', content)
+
+
+def getMe(request):
+    aboutMe = AboutMe.objects.all()[0]
+    if aboutMe.body is not None:
+        aboutMe.body = markdowner.convert(aboutMe.body)
+    content = {
+        'isAboutMe': True,
+        'aboutMe': aboutMe
+    }
+    return render(request, 'posts/me.html', content)
