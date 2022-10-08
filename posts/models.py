@@ -7,7 +7,9 @@ from django.dispatch import receiver
 
 from django_limits.limiter import Limiter
 from django.contrib.auth.models import User
-
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 # Create your models here
 
@@ -36,6 +38,7 @@ def content_file_name_art(instance, filename):
 class VisualArt(OrderedModel):
     name = models.CharField(max_length=100)
     art = models.ImageField(upload_to = 'art/')
+    thumbnail = models.ImageField(upload_to = 'thumbnails/', blank=True)
     description = models.TextField(null=True, default=None)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
@@ -59,6 +62,29 @@ class VisualArt(OrderedModel):
 def handleSavedArts(sender, instance, created, **kwargs): # we need this to move the new object always on top in ordering
     if created: # we make sure its created and not updated
         instance.top()
+
+        try:
+            f = BytesIO()
+            image = Image.open(instance.art.path) 
+            MAX_SIZE = (1200, 1200)
+            image.thumbnail(MAX_SIZE)
+
+            ext = instance.art.name.split('.')[-1]
+            if ext in ['jpg', 'jpeg']:
+                ftype = 'JPEG'
+            elif ext == 'gif':
+                ftype = 'GIF'
+            elif ext == 'png':
+                ftype = 'PNG'
+            else:
+                return False
+            image.save(f, format=ftype)
+            s = f.getvalue()
+            instance.thumbnail.save(instance.art.name, ContentFile(s))
+        except Exception as e:
+            print(e)
+        finally:
+            f.close()
 
 
 class Comment(models.Model):

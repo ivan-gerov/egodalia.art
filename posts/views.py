@@ -22,9 +22,22 @@ def getVisualArt(request, artID):
         show = False
     if not show:
         return HttpResponse("Art not found", status=404)
-    image_data = open(artObj.art.path, 'rb').read()
     print(artObj.art.url)
     return redirect(artObj.art.url)
+
+def getThumbnail(request, artID):
+    print(request.path)
+    try:
+        artObj = VisualArt.objects.get(id=artID)
+        if request.user.is_superuser:
+            show = True
+        else:
+            show = artObj.show
+    except:
+        show = False
+    if not show:
+        return HttpResponse("Art not found", status=404)
+    return redirect(artObj.thumbnail.url)
 
 
 def index(request):
