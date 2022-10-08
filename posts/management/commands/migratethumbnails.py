@@ -17,7 +17,7 @@ class Command(BaseCommand):
                     MAX_SIZE = (1200, 1200)
                     image.thumbnail(MAX_SIZE)
 
-                    ext = instance.art.name.split('.')[-1]
+                    ext = instance.art.name.split('.')[-1].lower()
                     if ext in ['jpg', 'jpeg']:
                         ftype = 'JPEG'
                     elif ext == 'gif':
