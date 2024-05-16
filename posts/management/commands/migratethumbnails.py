@@ -1,29 +1,30 @@
 from posts.models import VisualArt
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
 
+
 class Command(BaseCommand):
-    help = 'Creates thumbnails for all the arts that don\'t have one'
+    help = "Creates thumbnails for all the arts that don't have one"
 
     def handle(self, *args, **options):
         for instance in VisualArt.objects.all():
-            if instance.thumbnail.name == None:         
+            if instance.thumbnail.name == None:
                 try:
                     f = BytesIO()
-                    image = Image.open(instance.art.path) 
+                    image = Image.open(instance.art.path)
                     MAX_SIZE = (1200, 1200)
                     image.thumbnail(MAX_SIZE)
 
-                    ext = instance.art.name.split('.')[-1].lower()
-                    if ext in ['jpg', 'jpeg']:
-                        ftype = 'JPEG'
-                    elif ext == 'gif':
-                        ftype = 'GIF'
-                    elif ext == 'png':
-                        ftype = 'PNG'
+                    ext = instance.art.name.split(".")[-1].lower()
+                    if ext in ["jpg", "jpeg"]:
+                        ftype = "JPEG"
+                    elif ext == "gif":
+                        ftype = "GIF"
+                    elif ext == "png":
+                        ftype = "PNG"
                     else:
                         return False
                     image.save(f, format=ftype)
@@ -35,4 +36,3 @@ class Command(BaseCommand):
                     print(e)
                 finally:
                     f.close()
-

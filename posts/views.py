@@ -42,7 +42,7 @@ def getThumbnail(request, artID):
 
 def index(request):
     categories = Category.objects.filter(show=True)
-    arts = VisualArt.objects.filter(show=True)
+    arts = VisualArt.objects.filter(show=True).order_by("-created_at")
     content = {
         'categories': categories,
         'arts': arts,

@@ -37,6 +37,6 @@
 <section id="photos" style=" margin-top: 10px;">
     {% for art in arts %}
     <a href="/art/{{ art.id }}">
-        <img src="/thumbnail/{{ art.id }}"></a>
+        <img src="{{ art.thumbnail }}"></a>
     {% endfor %}
 </section>
