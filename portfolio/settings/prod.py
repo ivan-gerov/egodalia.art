@@ -4,7 +4,12 @@ import os
 from portfolio.settings.base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", "localhost"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    ".vercel.app",
+    "localhost",
+    "www.daliastaneva.com",
+]
 
 DATABASES = {
     "default": {
@@ -32,6 +37,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:5173",
-    "http://parfume-fe.vercel.app",
+    "www.daliastaneva.com",
+    "daliastaneva.com",
 ]
