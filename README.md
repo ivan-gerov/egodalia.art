@@ -1,23 +1,13 @@
 # egodalia.art
-This repository contains the source code for [this portfolio](https://egodalia.art).
+This repository contains the source code for [this portfolio](https://egodalia-art.vercel.app).
 
-## Requirements
+It was previously maintained by @ysanatomic, but I am taking it over. 
 
-- Python 3.8+
-- All the python packages listed in requirements.txt
+### Changes from the original version
+* Migrated from SQLite to Postgres
+* Migrated from internal server storage to Firebase
 
-## Installation
+### Stuff to fix perhaps at some point?
+* Some of the pages apart from Art and About me are missing - maybe get them back?
+* Add view/add/remove images Image Viewer extension from parfume project to Admin Page?
 
-1. Clone the repository.
-2. Install the required packages
-```
-pip install -r requirements.txt
-```
-3. Migrate everything
-```
-python manage.py migrate
-```
-
-## License
-
-[GPLv3](LICENSE) © [ysanatomic](https://github.com/ysanatomic)
