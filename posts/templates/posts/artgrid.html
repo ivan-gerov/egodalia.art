@@ -17,6 +17,38 @@
   width: 100% !important;
   height: auto !important;
   padding: 5px;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-container .overlay {
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+}
+
+.overlay .text {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 @media (max-width: 1200px) {
@@ -34,9 +66,15 @@
   }
 }
 </style>
-<section id="photos" style=" margin-top: 10px;">
+<section id="photos" style="margin-top: 10px;">
     {% for art in arts %}
-    <a href="/art/{{ art.id }}">
-        <img src="{{ art.thumbnail }}"></a>
+    <div class="image-container">
+        <a href="/art/{{ art.id }}">
+            <img src="{{ art.thumbnail }}" alt="{{ art.name }}">
+            <div class="overlay">
+                <div class="text">{{ art.name }}</div>
+            </div>
+        </a>
+    </div>
     {% endfor %}
 </section>
