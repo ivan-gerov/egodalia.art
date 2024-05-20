@@ -11,7 +11,16 @@ from posts.forms import VisualArtForm
 
 class VisualArtAdmin(OrderedModelAdmin):
     form = VisualArtForm
-    list_display = ("name", "move_up_down_links")
+    list_display = ("name", "move_up_down_links", "created_at")
+    actions = ("hide_artwork", "show_artwork")
+
+    @admin.action(description="Hide selected artwork")
+    def hide_artwork(modeladmin, request, queryset):
+        queryset.update(show=False)
+
+    @admin.action(description="Show selected artwork")
+    def show_artwork(modeladmin, request, queryset):
+        queryset.update(show=True)
 
 
 admin.site.register(VisualArt, VisualArtAdmin)

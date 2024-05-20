@@ -1,4 +1,5 @@
 from django.forms import ModelForm, FileField, FileInput
+from django.core.files import File
 
 from posts.models import VisualArt
 from posts.utils import FirebaseImageUploader, ImageProcessor
@@ -32,7 +33,8 @@ class VisualArtForm(ModelForm):
         return instance
 
     def handle_art_upload(self, instance: VisualArt):
-        if art_image := self.cleaned_data["art"]:
+        art_image = self.cleaned_data.get("art", None)
+        if art_image and isinstance(art_image, File):
             instance.art = self.firebase.upload_image(art_image)
 
             thumbnail = ImageProcessor().make_thumbnail(art_image)
