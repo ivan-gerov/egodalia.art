@@ -51,11 +51,11 @@ def update_visualart_fields(apps, schema_editor):
             else:
                 ftype = "PNG"
             artwork_PIL_Image.save(thumbnail_buffer, format=ftype)
-            thumbnail_buffer.seek(0)
 
             artwork.thumbnail = firebase.upload_image(
-                image_processor.create_inmemory_uploaded_file(
-                    thumbnail_buffer, filename=f"thumnail.{artwork_filename}"
+                image_processor.convert_image_to_file(
+                    artwork_PIL_Image,
+                    filename=f"thumnail.{artwork_filename}",
                 )
             )
 

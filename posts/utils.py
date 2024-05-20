@@ -29,25 +29,15 @@ class FirebaseImageUploader:
 
 
 class ImageProcessor:
-    def make_thumbnail(self, art_image: File) -> InMemoryUploadedFile:
-        image = Image.open(art_image.file)
-        MAX_SIZE = (1200, 1200)
-        image.thumbnail(MAX_SIZE)
+    def convert_file_to_image(self, file: File) -> Image.Image:
+        return Image.open(file.file)
 
+    def convert_image_to_file(self, image: Image.Image, filename: str) -> File:
         thumbnail_buffer = io.BytesIO()
         image.save(thumbnail_buffer, format="JPEG")
         thumbnail_buffer.seek(0)
-
-        return self.create_inmemory_uploaded_file(
-            thumbnail_buffer,
-            filename=f"thumnail.{art_image.name}",
-        )
-
-    def create_inmemory_uploaded_file(
-        self, file_buffer: io.BytesIO, filename: str
-    ) -> InMemoryUploadedFile:
         # Create an InMemoryUploadedFile from the BytesIO buffer
-        file_content = file_buffer.getvalue()
+        file_content = thumbnail_buffer.getvalue()
         content_file = ContentFile(file_content, name=filename)
 
         # Determine the content type based on the filename extension
@@ -55,7 +45,7 @@ class ImageProcessor:
         content_type = content_type or "application/octet-stream"
 
         # Create and return the InMemoryUploadedFile instance
-        uploaded_file = InMemoryUploadedFile(
+        return InMemoryUploadedFile(
             file=content_file,
             field_name=None,
             name=filename,
@@ -64,4 +54,15 @@ class ImageProcessor:
             charset=None,
         )
 
-        return uploaded_file
+    def make_thumbnail_of_file(
+        self, file: File, new_size: typing.Optional[tuple] = None
+    ) -> File:
+        if not new_size:
+            new_size = (800, 800)
+
+        image = self.convert_file_to_image(file)
+        image.thumbnail(new_size)
+        return self.convert_image_to_file(
+            image,
+            filename=f"thumnail.{file.name}",
+        )
