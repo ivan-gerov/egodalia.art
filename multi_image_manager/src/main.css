@@ -1,0 +1,40 @@
+.upload-images-button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #10b7dd;
+  border-radius: 12px;
+  border-style: hidden;
+  width: fit-content;
+}
+
+.upload-images-button:hover {
+  cursor: pointer;
+  background-color: red;
+  color: white;
+}
+
+.delete-image-button {
+  display: inline-block;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  z-index: 1;
+  font-size: 50px;
+  border-radius: 50px;
+  border: 1px solid gray;
+  padding: 1.2rem;
+  opacity: 60%;
+  color: gray;
+  line-height: 0.6;
+  transform: rotate(45deg);
+}
+
+.delete-image-button:hover {
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  border-color: darkred;
+  opacity: 100%;
+}

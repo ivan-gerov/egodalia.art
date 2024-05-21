@@ -1,3 +1,5 @@
+import json
+
 from ordered_model.models import OrderedModel
 from django.db import models
 from django_limits.limiter import Limiter
@@ -22,8 +24,11 @@ class Category(models.Model):
 
 class VisualArt(OrderedModel):
     name = models.CharField(max_length=100)
-    art = models.TextField()
+
+    main_image = models.TextField()
     thumbnail = models.TextField(blank=True, default=None)
+    additional_images = models.TextField(blank=True, null=True)
+
     description = models.TextField(null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -39,9 +44,16 @@ class VisualArt(OrderedModel):
     def __str__(self):
         return self.name
 
-    def admin_image(self):
-        return self.art
+    def get_additional_images_list(self):
+        if self.additional_images:
+            try:
+                return self.additional_images
+            except json.JSONDecodeError as e:
+                print("JSON Decode Error:", e)
+        return []
 
+    def set_additional_images(self, images):
+        self.additional_images = json.dumps(images)
 
 class Comment(models.Model):
     posted_by = models.CharField(max_length=32)

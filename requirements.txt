@@ -9,6 +9,7 @@ cryptography==42.0.7
 Django==4.0.2
 django-limits==0.0.6
 django-markdown-deux==1.0.5
+django-multiupload==0.6.1
 django-ordered-model==3.5
 django-ratelimit==3.0.1
 django-stubs==5.0.0
