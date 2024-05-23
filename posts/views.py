@@ -10,6 +10,7 @@ markdowner = Markdown()
 
 # Create your views here.
 
+
 def getVisualArt(request, artID):
     print(request.path)
     try:
@@ -24,6 +25,7 @@ def getVisualArt(request, artID):
         return HttpResponse("Art not found", status=404)
     print(artObj.art.url)
     return redirect(artObj.art.url)
+
 
 def getThumbnail(request, artID):
     print(request.path)
@@ -43,12 +45,9 @@ def getThumbnail(request, artID):
 def index(request):
     categories = Category.objects.filter(show=True)
     arts = VisualArt.objects.filter(show=True).order_by("-created_at")
-    content = {
-        'categories': categories,
-        'arts': arts,
-        'isIndex': True
-    }
-    return render(request, 'posts/index.html', content)
+    content = {"categories": categories, "arts": arts, "isIndex": True}
+    return render(request, "posts/index.html", content)
+
 
 def art(request, artID):
     try:
@@ -67,21 +66,19 @@ def art(request, artID):
     else:
         artObj.description = ""
     content = {
-        'categories': categories,
-        'art': artObj,
-        'isIndex': True
+        "categories": categories,
+        "art": artObj,
+        "isIndex": True,
+        "additional_images": artObj.get_additional_images_urls(),
     }
-    return render(request, 'posts/art_page.html', content)
+    return render(request, "posts/art_page.html", content)
+
 
 def getArtsFromCategory(request, categoryID):
     categories = Category.objects.filter(show=True)
     arts = VisualArt.objects.filter(show=True, categories__in=categoryID)
-    content = {
-        'categories': categories,
-        'arts': arts,
-        'categoryID': int(categoryID)
-    }
-    return render(request, 'posts/index.html', content)
+    content = {"categories": categories, "arts": arts, "categoryID": int(categoryID)}
+    return render(request, "posts/index.html", content)
 
 
 def getBlogHome(request):
@@ -93,12 +90,13 @@ def getBlogHome(request):
     headPost = blogPosts[0]
     blogPosts = blogPosts[1:]
     content = {
-        'posts': blogPosts,
-        'headPost': headPost,
-        'blog_categories': categories,
-        'isBlog': True
+        "posts": blogPosts,
+        "headPost": headPost,
+        "blog_categories": categories,
+        "isBlog": True,
     }
-    return render(request, 'posts/blog_home.html', content)
+    return render(request, "posts/blog_home.html", content)
+
 
 def getBlogPost(request, postID):
     try:
@@ -108,12 +106,8 @@ def getBlogPost(request, postID):
     categories = BlogCategory.objects.all()
 
     post.body = markdowner.convert(post.body)
-    content = {
-        'blog_categories': categories,
-        'post': post,
-        'isBlog': True
-    }
-    return render(request, 'posts/blog_post.html', content)
+    content = {"blog_categories": categories, "post": post, "isBlog": True}
+    return render(request, "posts/blog_post.html", content)
 
 
 def getPostsFromCategory(request, categoryID):
@@ -125,20 +119,13 @@ def getPostsFromCategory(request, categoryID):
     for post in posts:
         post.body = markdowner.convert(post.body)
     categories = BlogCategory.objects.all()
-    content = {
-        'posts': posts,
-        'blog_categories': categories,
-        'isBlog': True
-    }
-    return render(request, 'posts/blog_categorypage.html', content)
+    content = {"posts": posts, "blog_categories": categories, "isBlog": True}
+    return render(request, "posts/blog_categorypage.html", content)
 
 
 def getMe(request):
     aboutMe = AboutMe.objects.all()[0]
     if aboutMe.body is not None:
         aboutMe.body = markdowner.convert(aboutMe.body)
-    content = {
-        'isAboutMe': True,
-        'aboutMe': aboutMe
-    }
-    return render(request, 'posts/me.html', content)
+    content = {"isAboutMe": True, "aboutMe": aboutMe}
+    return render(request, "posts/me.html", content)

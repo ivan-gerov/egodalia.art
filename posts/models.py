@@ -52,8 +52,17 @@ class VisualArt(OrderedModel):
                 print("JSON Decode Error:", e)
         return []
 
+    def get_additional_images_urls(self):
+        if self.additional_images:
+            try:
+                return [image["url"] for image in json.loads(self.additional_images)]
+            except json.JSONDecodeError as e:
+                print("JSON Decode Error:", e)
+                return []
+
     def set_additional_images(self, images):
         self.additional_images = json.dumps(images)
+
 
 class Comment(models.Model):
     posted_by = models.CharField(max_length=32)
