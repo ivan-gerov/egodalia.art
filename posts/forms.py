@@ -15,11 +15,35 @@ class HiddenMultiUploadMetaInput(MultiUploadMetaInput):
 
 
 class VisualArtForm(ModelForm):
+    ACCEPTED_IMAGE_FILES = [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/gif",
+        "image/webp",
+        "image/bmp",
+        "image/svg",
+        "image/avif",
+        ".png",
+        ".jpg",
+        ".svg",
+        ".jpeg",
+        ".gif",
+        ".webp",
+        ".bmp",
+        ".avif",
+    ]
+
     # Main Image Upload Field that maps to React components
     main_image_file = FileField(
         required=False,
         label="Main image",
-        widget=FileInput(attrs={"id": "django_main_image_hidden_input"}),
+        widget=FileInput(
+            attrs={
+                "id": "django_main_image_hidden_input",
+                "accept": f"{', '.join(ACCEPTED_IMAGE_FILES)}",
+            }
+        ),
     )
     main_image_deleted = CharField(
         required=False,
@@ -35,6 +59,7 @@ class VisualArtForm(ModelForm):
             attrs={
                 "id": "django_multi_image_hidden_input",
                 "style": "display: none;",
+                "accept": f"{', '.join(ACCEPTED_IMAGE_FILES)}",
             },
         ),
     )
@@ -137,7 +162,9 @@ class VisualArtForm(ModelForm):
     def limit_image_size(self, image_file: File) -> File:
         # If larger than 4.5 mbs (Vercel 413: FUNCTION_PAYLOAD_TOO_LARGE)
         if (image_file.size // 1024**2) >= 4.5:
-            image_file = self.image_processor.make_thumbnail_of_file(
+            return self.image_processor.make_thumbnail_of_file(
                 image_file,
                 new_size=(1024, 1024),
             )
+        else:
+            return image_file
