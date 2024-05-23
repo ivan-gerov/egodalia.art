@@ -6,8 +6,12 @@ It was previously maintained by @ysanatomic, but I am taking it over.
 ### Changes from the original version
 * Migrated from SQLite to Postgres
 * Migrated from internal server storage to Firebase
+* Added view/add/remove images and additional (progress) images for art
+* Added resizing when files are too big for Vercel (4.5 mb limit) on both FE and BE
+* Added additional (progress) images on the Art pages under the main art image
 
 ### Stuff to fix perhaps at some point?
 * Some of the pages apart from Art and About me are missing - maybe get them back?
-* Add view/add/remove images Image Viewer extension from parfume project to Admin Page?
+  * Perhaps the Research page?
+* Add shown/hidden column on Admin Art table 
 
