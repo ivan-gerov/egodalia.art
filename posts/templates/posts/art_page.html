@@ -1,13 +1,34 @@
 {% extends 'posts/layout.html' %}
 {% block content %}
 
+<style>
+body.no-scroll {
+    overflow: hidden;
+    height: 100%;
+}
+
+#fullpage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    align-items: center;
+    justify-content: center;
+    background-size: contain; /* Ensure the image is contained within the element */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+</style>
 
 <div class="container" style="margin-top: 20px; width: 100%; height: 100%;">
     <div class="row">
         <div class="col-md">
             <div class="row" style="margin-bottom: 5rem;">
                 <div class="gallery">
-                    <img class="xcenter-fit" src='{{art.main_image}}'>
+                    <img class="xcenter-fit" id="main_image" src='{{art.main_image}}'>
                 </div>
             </div>
             <div>
@@ -37,7 +58,14 @@
             </div>
         </div>
     </div>
-    <div id="fullpage" onclick="this.style.display='none';"></div>
+
+    <script>
+        function handleFullpageOnClick(){
+            this.style.display="none"
+            document.body.classList.remove('no-scroll')
+        }
+    </script>
+    <div id="fullpage" onclick="handleFullpageOnClick.call(this)"></div>
     <script>
         const imgs = document.querySelectorAll('.gallery img');
         const fullPage = document.querySelector('#fullpage');
@@ -45,6 +73,7 @@
         img.addEventListener('click', function() {
             fullPage.style.backgroundImage = 'url(' + img.src + ')';
             fullPage.style.display = 'block';
+            document.body.classList.add('no-scroll')
         });
         });
     </script>
