@@ -58,7 +58,7 @@ class ImageProcessor:
         self, file: File, new_size: typing.Optional[tuple] = None
     ) -> File:
         if not new_size:
-            new_size = (800, 800)
+            new_size = (1200, 1200)
 
         image = self.convert_file_to_image(file)
         image.thumbnail(new_size)
