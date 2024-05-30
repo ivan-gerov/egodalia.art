@@ -11,6 +11,7 @@ It was previously maintained by @ysanatomic, but I am taking it over.
 * Added additional (progress) images on the Art pages under the main art image
 
 ### Stuff to fix perhaps at some point?
+* Fix fullscreen on additional images
 * Some of the pages apart from Art and About me are missing - maybe get them back?
   * Perhaps the Research page?
 * Add shown/hidden column on Admin Art table 
