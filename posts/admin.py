@@ -18,6 +18,7 @@ class VisualArtAdmin(OrderedModelAdmin):
         "name",
         "move_up_down_links",
         "created_at",
+        "show"
     )
     actions = ("hide_artwork", "show_artwork")
 
